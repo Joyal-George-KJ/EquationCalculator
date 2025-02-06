@@ -1,55 +1,81 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setValue } from "../utilities/slice/readingSlice";
 
-function ReadingInfo({nth}) {
-    const [price, setPrice] = useState(105.49);
+function ReadingInfo({ nth }) {
+    const [readings, setReadings] = useState({});
+    const dispatch = useDispatch(); // Correctly initialize dispatch
+    const datas = useSelector((state) => state.calculateReading);
+
+    useEffect(() => {
+        console.log(datas);
+    }, [readings]);
+
+    const handleInputChange = (key, value) => {
+        let index = nth -1
+        setReadings((prev) => ({ ...prev, [key]: value }));
+        dispatch(setValue({ key, index, value })); // Dispatch the value to Redux
+    };
 
     return (
-        <>
-            <div className="flex gap-2 flex-col">
-                <p className="text-neutral-500 pt-3 text-lg w-full text-center">Reading {nth}</p>
-                <label htmlFor="reading-start">Reading Start: </label>
+        <div className="flex flex-col gap-4">
+            {/* Title */}
+            <p className="text-neutral-500 text-lg text-center pt-3">
+                Reading {nth}
+            </p>
+
+            {/* Reading Start */}
+            <div className="flex flex-col gap-2">
+                <label htmlFor={`reading-start-${nth}`}>Reading Start:</label>
                 <input
-                    className="bg-neutral-800 text-neutral-100 px-1 py-2 capitalize border-2 rounded w-full"
-                    id="reading-start"
+                    id={`reading-start-${nth}`}
                     type="number"
                     placeholder="0.00"
                     required
+                    onChange={(e) => handleInputChange("starts", Number(e.target.value))}
+                    className="bg-neutral-800 text-neutral-100 px-3 py-2 border-2 rounded w-full"
                 />
             </div>
-            <div className="flex gap-2 flex-col">
-                <label htmlFor="reading-end">Reading End: </label>
+
+            {/* Reading End */}
+            <div className="flex flex-col gap-2">
+                <label htmlFor={`reading-end-${nth}`}>Reading End:</label>
                 <input
-                    className="bg-neutral-800 text-neutral-100 px-1 py-2 capitalize border-2 rounded w-full"
-                    id="reading-end"
+                    id={`reading-end-${nth}`}
                     type="number"
                     placeholder="0.00"
                     required
+                    onChange={(e) => handleInputChange("ends", Number(e.target.value))}
+                    className="bg-neutral-800 text-neutral-100 px-3 py-2 border-2 rounded w-full"
                 />
             </div>
-            <div className="flex gap-2 flex-col">
-                <label htmlFor="fuel">Choose Fuel: </label>
-                <div className="w-full flex flex-row">
+
+            {/* Fuel Selection */}
+            <div className="flex flex-col gap-2">
+                <label htmlFor={`fuel-${nth}`}>Choose Fuel:</label>
+                <div className="flex">
                     <select
-                        className="text-neutral-100 px-1 py-2 border-2 bg-neutral-800 uppercase w-1/3"
-                        name="fuel"
-                        id="fuel"
-                        onChange={(e) => setPrice(Number(e.target.value))}
+                        id={`fuel-${nth}`}
+                        className="text-neutral-100 px-3 py-2 border-2 bg-neutral-800 uppercase w-1/3"
+                        onChange={(e) => handleInputChange("prices", Number(e.target.value))}
                     >
-                        <option value={105.49}>ms</option>
-                        <option value={94.48}>ds</option>
-                        <option value={112.64}>xp</option>
-                        <option value={NaN}>others</option>
+                        <option value={105.49}>MS</option>
+                        <option value={94.48}>DS</option>
+                        <option value={112.64}>XP</option>
+                        <option value={61.78}>LPG</option>
+                        <option value={0}>Others</option>
                     </select>
                     <input
-                        className="bg-neutral-800 text-neutral-100 px-1 py-2 capitalize border-2 border-l-0 rounded-r w-2/3"
+                        id={`display-price-${nth}`}
                         type="number"
-                        value={price}
-                        placeholder="price"
+                        value={readings.price || ""}
+                        placeholder="Price"
                         disabled
+                        className="bg-neutral-800 text-neutral-100 px-3 py-2 border-2 border-l-0 rounded-r w-2/3"
                     />
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 
