@@ -21,42 +21,42 @@ function ReadingInfo({ nth }) {
         <div className="flex flex-col gap-4">
             {/* Title */}
             <p className="text-neutral-500 text-lg text-center pt-3">
-                Reading {nth}
+                Reading {nth + 1}
             </p>
 
             {/* Reading Start */}
             <div className="flex flex-col gap-2">
-                <label htmlFor={`reading-start-${nth}`}>Reading Start:</label>
+                <label className="text-neutral-200" htmlFor={`reading-start-${nth}`}>Reading Start:</label>
                 <input
                     id={`reading-start-${nth}`}
                     type="number"
                     placeholder="0.00"
                     required
                     onChange={(e) => handleInputChange("starts", Number(e.target.value))}
-                    className="bg-neutral-800 text-neutral-100 px-3 py-2 border-2 rounded w-full"
+                    className="p-2 text-neutral-50 bg-neutral-700 rounded"
                 />
             </div>
 
             {/* Reading End */}
             <div className="flex flex-col gap-2">
-                <label htmlFor={`reading-end-${nth}`}>Reading End:</label>
+                <label className="text-neutral-200" htmlFor={`reading-end-${nth}`}>Reading End:</label>
                 <input
                     id={`reading-end-${nth}`}
                     type="number"
                     placeholder="0.00"
                     required
                     onChange={(e) => handleInputChange("ends", Number(e.target.value))}
-                    className="bg-neutral-800 text-neutral-100 px-3 py-2 border-2 rounded w-full"
+                    className="p-2 text-neutral-50 bg-neutral-700 rounded"
                 />
             </div>
 
             {/* Fuel Selection */}
             <div className="flex flex-col gap-2">
-                <label htmlFor={`fuel-${nth}`}>Choose Fuel:</label>
+                <label className="text-neutral-200" htmlFor={`fuel-${nth}`}>Choose Fuel:</label>
                 <div className="flex">
                     <select
                         id={`fuel-${nth}`}
-                        className="text-neutral-100 px-3 py-2 border-2 bg-neutral-800 uppercase w-1/3"
+                        className="p-2 text-neutral-50 bg-neutral-700 rounded-l w-1/4"
                         onChange={(e) => handleInputChange("prices", Number(e.target.value))}
                     >
                         <option value={105.49}>MS</option>
@@ -71,7 +71,7 @@ function ReadingInfo({ nth }) {
                         value={readings.price || ""}
                         placeholder="Price"
                         disabled
-                        className="bg-neutral-800 text-neutral-100 px-3 py-2 border-2 border-l-0 rounded-r w-2/3"
+                        className="p-2 text-neutral-50 bg-neutral-700 rounded-r w-3/4"
                     />
                 </div>
             </div>
