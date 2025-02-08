@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setValue } from "../utilities/slice/readingSlice";
 
@@ -6,10 +6,6 @@ function ReadingInfo({ nth }) {
     const [readings, setReadings] = useState({});
     const dispatch = useDispatch(); // Correctly initialize dispatch
     const datas = useSelector((state) => state.calculateReading);
-
-    useEffect(() => {
-        console.log(datas);
-    }, [readings]);
 
     const handleInputChange = (key, value) => {
         let index = nth -1
