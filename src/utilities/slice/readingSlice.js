@@ -2,11 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     name: "",
-    starts: [],
-    ends: [],
+    pumpReadingStarts: [],
+    pumpReadingEnds: [],
     prices: [],
     cards: [],
-    upi: [],
+    inlends: [],
+    upiStart: [],
+    upiClose: [],
     cash: [],
 };
 
