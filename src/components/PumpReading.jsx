@@ -60,10 +60,10 @@ function PumpReading({ i }) {
                     <select
                         id={`fuel-${i}`}
                         className="p-2 text-neutral-50 bg-neutral-700 rounded-l w-1/4"
+                        defaultValue={105.49}
                         onChange={(e) =>
                             handleInputChange("prices", Number(e.target.value), i)
                         }
-                        defaultValue={105.49}
                     >
                         <option value={105.49}>MS</option>
                         <option value={94.48}>DS</option>
@@ -74,7 +74,7 @@ function PumpReading({ i }) {
                     <input
                         id={`display-price-${i}`}
                         type="number"
-                        value={datas.prices || "105.49"}
+                        value={datas.prices[i] || "105.49"}
                         placeholder="Price"
                         disabled
                         className="p-2 text-neutral-50 bg-neutral-700 rounded-r w-3/4"
