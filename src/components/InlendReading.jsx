@@ -1,16 +1,8 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setValue } from "../utilities/slice/readingSlice";
+import React from "react";
+import useValue from "../hooks/useValue";
 
 function InlendReading({ i }) {
-    const [readings, setReadings] = useState({});
-    const dispatch = useDispatch(); // Correctly initialize dispatch
-    const datas = useSelector((state) => state.calculateReading);
-
-    const handleInputChange = (key, value) => {
-        let index = i;
-        dispatch(setValue({ key, index, value })); // Dispatch the value to Redux
-    }
+    const [handleInputChange, datas ] = useValue();
 
     return (
         <div className="flex flex-col gap-4">
@@ -22,7 +14,7 @@ function InlendReading({ i }) {
                 className="p-2 text-neutral-50 bg-neutral-700 rounded"
                 required
                 type="number"
-                onChange={(e) => handleInputChange("inlends", Number(e.target.value))}
+                onChange={(e) => handleInputChange("inlends", Number(e.target.value), i)}
                 placeholder={`In-Lend ${i + 1}:`}
                 id={i}
             />

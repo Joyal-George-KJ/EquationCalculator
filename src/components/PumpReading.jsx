@@ -1,40 +1,31 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setValue } from "../utilities/slice/readingSlice";
+import React from "react";
+import useValue from "../hooks/useValue";
 
-function PumpReading({ nth }) {
-    const [readings, setReadings] = useState({});
-    const dispatch = useDispatch(); // Correctly initialize dispatch
-    const datas = useSelector((state) => state.calculateReading);
-
-    const handleInputChange = (key, value) => {
-        let index = nth;
-        setReadings((prev) => ({ ...prev, [key]: value }));
-        dispatch(setValue({ key, index, value })); // Dispatch the value to Redux
-    };
+function PumpReading({ i }) {
+    const [handleInputChange, datas ] = useValue();
 
     return (
         <div className="flex flex-col gap-4">
             {/* Title */}
             <p className="text-neutral-500 text-lg text-center pt-3">
-                Reading {nth + 1}
+                Reading {i + 1}
             </p>
 
             {/* Reading Start */}
             <div className="flex flex-col gap-2">
                 <label
                     className="text-neutral-200"
-                    htmlFor={`reading-start-${nth}`}
+                    htmlFor={`reading-start-${i}`}
                 >
                     Reading Start:
                 </label>
                 <input
-                    id={`reading-start-${nth}`}
+                    id={`reading-start-${i}`}
                     type="number"
                     placeholder="0.00"
                     required
                     onChange={(e) =>
-                        handleInputChange("pumpReadingStarts", Number(e.target.value))
+                        handleInputChange("pumpReadingStarts", Number(e.target.value), i)
                     }
                     className="p-2 text-neutral-50 bg-neutral-700 rounded"
                 />
@@ -44,17 +35,17 @@ function PumpReading({ nth }) {
             <div className="flex flex-col gap-2">
                 <label
                     className="text-neutral-200"
-                    htmlFor={`reading-end-${nth}`}
+                    htmlFor={`reading-end-${i}`}
                 >
                     Reading End:
                 </label>
                 <input
-                    id={`reading-end-${nth}`}
+                    id={`reading-end-${i}`}
                     type="number"
                     placeholder="0.00"
                     required
                     onChange={(e) =>
-                        handleInputChange("pumpReadingEnds", Number(e.target.value))
+                        handleInputChange("pumpReadingEnds", Number(e.target.value), i)
                     }
                     className="p-2 text-neutral-50 bg-neutral-700 rounded"
                 />
@@ -62,15 +53,15 @@ function PumpReading({ nth }) {
 
             {/* Fuel Selection */}
             <div className="flex flex-col gap-2">
-                <label className="text-neutral-200" htmlFor={`fuel-${nth}`}>
+                <label className="text-neutral-200" htmlFor={`fuel-${i}`}>
                     Choose Fuel:
                 </label>
                 <div className="flex">
                     <select
-                        id={`fuel-${nth}`}
+                        id={`fuel-${i}`}
                         className="p-2 text-neutral-50 bg-neutral-700 rounded-l w-1/4"
                         onChange={(e) =>
-                            handleInputChange("prices", Number(e.target.value))
+                            handleInputChange("prices", Number(e.target.value), i)
                         }
                         defaultValue={105.49}
                     >
@@ -81,7 +72,7 @@ function PumpReading({ nth }) {
                         <option value={0}>Others</option>
                     </select>
                     <input
-                        id={`display-price-${nth}`}
+                        id={`display-price-${i}`}
                         type="number"
                         value={datas.prices || "105.49"}
                         placeholder="Price"

@@ -1,17 +1,10 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setValue } from "../utilities/slice/readingSlice";
+import React from "react";
+import useValue from "../hooks/useValue";
 
 
 function UPIReading({i}) {
-    const [readings, setReadings] = useState({});
-    const dispatch = useDispatch(); // Correctly initialize dispatch
-    const datas = useSelector((state) => state.calculateReading);
+    const [handleInputChange, datas ] = useValue();
 
-    const handleInputChange = (key, value) => {
-        let index = i;
-        dispatch(setValue({ key, index, value })); // Dispatch the value to Redux
-    };
     return (
         <div className="flex flex-col gap-4">
             {/* Title */}
@@ -22,7 +15,7 @@ function UPIReading({i}) {
                 className="p-2 text-neutral-50 bg-neutral-700 rounded"
                 required
                 type="number"
-                onChange={(e) => handleInputChange("upiStart", Number(e.target.value))}
+                onChange={(e) => handleInputChange("upiStart", Number(e.target.value), i)}
                 placeholder={`PhonePe/Paytm/UPI Start ${i + 1}:`}
                 id={`start ${i}`}
             />
@@ -30,7 +23,7 @@ function UPIReading({i}) {
                 className="p-2 text-neutral-50 bg-neutral-700 rounded"
                 required
                 type="number"
-                onChange={(e) => handleInputChange("upiClose", Number(e.target.value))}
+                onChange={(e) => handleInputChange("upiClose", Number(e.target.value), i)}
                 placeholder={`PhonePe/Paytm/UPI End ${i + 1}:`}
                 id={`end ${i}`}
             />

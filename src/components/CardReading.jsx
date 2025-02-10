@@ -1,17 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setValue } from "../utilities/slice/readingSlice";
+import React from "react";
+import useValue from "../hooks/useValue";
 
 function CardReading({ i }) {
-    const [readings, setReadings] = useState({});
-    const dispatch = useDispatch(); // Correctly initialize dispatch
-    const datas = useSelector((state) => state.calculateReading);
-
-    const handleInputChange = (key, value) => {
-        let index = i;
-        setReadings((prev) => ({ ...prev, [key]: value }));
-        dispatch(setValue({ key, index, value })); // Dispatch the value to Redux
-    };
+    const [handleInputChange, datas] = useValue();
 
     return (
         <div className="flex flex-col gap-4">
@@ -24,7 +15,7 @@ function CardReading({ i }) {
                 required
                 type="number"
                 onChange={(e) =>
-                    handleInputChange("cards", Number(e.target.value))
+                    handleInputChange("cards", Number(e.target.value), i)
                 }
                 placeholder={`Card ${i + 1}:`}
                 id={i}
