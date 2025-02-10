@@ -5,9 +5,12 @@ import CardReading from "./components/CardReading";
 import UPIReading from "./components/UPIReading";
 import InlendReading from "./components/InlendReading";
 import CashReading from "./components/CashReading";
+import { useDispatch } from "react-redux";
+import { calculateReads } from "./utilities/slice/readingSlice";
 
 function App() {
     const ref = useRef([]);
+    const dispatch = useDispatch();
     const [stage, setStage] = useState(0);
     const [counts, setCounts] = useState({
         readings: 0,
@@ -19,6 +22,7 @@ function App() {
 
     const handleNext = () => setStage(stage + 1);
     const handleBack = () => setStage(stage - 1);
+    const handleCalc = () => console.log(dispatch(calculateReads()));
 
     useEffect(() => {}, [stage]);
 
@@ -123,7 +127,7 @@ function App() {
                             {stage}
                         </h2>
                         {Array.from({ length: counts.readings }).map((_, i) => (
-                            <PumpReading key={i} nth={i} />
+                            <PumpReading key={i} i={i} />
                         ))}
                         <div className="flex justify-between items-center mt-4">
                             <button
@@ -237,7 +241,7 @@ function App() {
                                 {"<< Back"}
                             </button>
                             <button
-                                // onClick={handleNext}
+                                onClick={handleCalc}
                                 type="submit"
                                 className="p-2 text-neutral-50 bg-neutral-700 rounded"
                             >
