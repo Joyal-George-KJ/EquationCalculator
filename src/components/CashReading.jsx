@@ -13,6 +13,7 @@ function CashReading({ i }) {
             <input
                 className="p-2 text-neutral-50 bg-neutral-700 rounded"
                 required
+                step={"any"}
                 type="number"
                 onChange={(e) => handleInputChange("cash", Number(e.target.value), i)}
                 placeholder={`Cash ${i + 1}:`}

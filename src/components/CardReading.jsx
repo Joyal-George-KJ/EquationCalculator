@@ -13,6 +13,7 @@ function CardReading({ i }) {
             <input
                 className="p-2 text-neutral-50 bg-neutral-700 rounded"
                 required
+                step={"any"}
                 type="number"
                 onChange={(e) =>
                     handleInputChange("cards", Number(e.target.value), i)

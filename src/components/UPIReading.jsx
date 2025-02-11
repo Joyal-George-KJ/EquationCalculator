@@ -15,6 +15,7 @@ function UPIReading({i}) {
                 className="p-2 text-neutral-50 bg-neutral-700 rounded"
                 required
                 type="number"
+                step={"any"}
                 onChange={(e) => handleInputChange("upiStart", Number(e.target.value), i)}
                 placeholder={`PhonePe/Paytm/UPI Start ${i + 1}:`}
                 id={`start ${i}`}
@@ -22,6 +23,7 @@ function UPIReading({i}) {
             <input
                 className="p-2 text-neutral-50 bg-neutral-700 rounded"
                 required
+                step={"any"}
                 type="number"
                 onChange={(e) => handleInputChange("upiClose", Number(e.target.value), i)}
                 placeholder={`PhonePe/Paytm/UPI End ${i + 1}:`}
