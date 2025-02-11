@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useValue from "../hooks/useValue";
 
 function PumpReading({ i }) {
     const [handleInputChange, datas ] = useValue();
+    useEffect(() => {
+        handleInputChange("prices", 105.49, i);
+    }, [])
 
     return (
         <div className="flex flex-col gap-4">
@@ -20,6 +23,7 @@ function PumpReading({ i }) {
                     Reading Start:
                 </label>
                 <input
+                step={"any"}
                     id={`reading-start-${i}`}
                     type="number"
                     placeholder="0.00"
@@ -42,6 +46,7 @@ function PumpReading({ i }) {
                 <input
                     id={`reading-end-${i}`}
                     type="number"
+                    step={"any"}
                     placeholder="0.00"
                     required
                     onChange={(e) =>
@@ -74,6 +79,7 @@ function PumpReading({ i }) {
                     <input
                         id={`display-price-${i}`}
                         type="number"
+                        step={"any"}
                         value={datas.prices[i] || "105.49"}
                         placeholder="Price"
                         disabled
