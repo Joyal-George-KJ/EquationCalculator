@@ -7,6 +7,7 @@ import InlendReading from "./components/InlendReading";
 import CashReading from "./components/CashReading";
 import { useDispatch } from "react-redux";
 import { calculateReads } from "./utilities/slice/readingSlice";
+import DisplayDataCard from "./components/DisplayDataCard";
 
 function App() {
     const ref = useRef([]);
@@ -146,7 +147,6 @@ function App() {
                         </div>
                     </>
                 )}
-
                 {stage === 2 && (
                     <>
                         <h2 className="text-neutral-300 text-xl bg-neutral-700 px-2 rounded-full w-fit">
@@ -172,7 +172,6 @@ function App() {
                         </div>
                     </>
                 )}
-
                 {stage === 3 && (
                     <>
                         <h2 className="text-neutral-300 text-xl bg-neutral-700 px-2 rounded-full w-fit">
@@ -198,7 +197,6 @@ function App() {
                         </div>
                     </>
                 )}
-
                 {stage === 4 && (
                     <>
                         <h2 className="text-neutral-300 text-xl bg-neutral-700 px-2 rounded-full w-fit">
@@ -224,7 +222,6 @@ function App() {
                         </div>
                     </>
                 )}
-
                 {stage === 5 && (
                     <>
                         <h2 className="text-neutral-300 text-xl bg-neutral-700 px-2 rounded-full w-fit">
@@ -250,6 +247,7 @@ function App() {
                         </div>
                     </>
                 )}
+                {stage === 6 && <DisplayDataCard />}
             </form>
         </div>
     );
