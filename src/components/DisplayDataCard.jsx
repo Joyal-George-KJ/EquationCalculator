@@ -40,7 +40,7 @@ const DisplayDataCard = () => {
     const difference = totalReadingAmount - totalCashFlow;
 
     return (
-        <div className="max-w-lg mx-auto mt-6 p-6 bg-neutral-800 text-white rounded-2xl shadow-lg">
+        <div className="max-w-full mt-6 p-6 bg-neutral-800 text-white rounded-2xl shadow-lg">
             <h2 className="text-xl font-bold mb-4">📊 Transaction Summary</h2>
 
             {/* Step 1 */}
@@ -71,7 +71,7 @@ const DisplayDataCard = () => {
             </div>
 
             {/* Step 5: Final Difference */}
-            <div className={`mt-4 p-3 rounded-xl text-center ${difference === 0 ? "bg-green-600" : "bg-red-600"}`}>
+            <div className={`mt-4 p-3 rounded-xl text-center ${difference <= 15 ? "bg-green-600" : "bg-red-600"}`}>
                 <strong>📉 Difference: ₹{difference}</strong>
             </div>
         </div>
