@@ -1,9 +1,8 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import useValue from "../hooks/useValue";
 
-
-function UPIReading({i}) {
-    const [handleInputChange, datas ] = useValue();
+const UPIReading = forwardRef(({ i }, ref) => {
+    const [handleInputChange, datas] = useValue();
 
     return (
         <div className="flex flex-col gap-4">
@@ -16,7 +15,10 @@ function UPIReading({i}) {
                 required
                 type="number"
                 step={"any"}
-                onChange={(e) => handleInputChange("upiStart", Number(e.target.value), i)}
+                ref={(e) => (ref.current[i * 2 || 1] = e)}
+                onChange={(e) =>
+                    handleInputChange("upiStart", Number(e.target.value), i)
+                }
                 placeholder={`PhonePe/Paytm/UPI Start ${i + 1}:`}
                 id={`start ${i}`}
             />
@@ -25,12 +27,15 @@ function UPIReading({i}) {
                 required
                 step={"any"}
                 type="number"
-                onChange={(e) => handleInputChange("upiClose", Number(e.target.value), i)}
+                ref={(e) => (ref.current[i * 2 + 1 || 1] = e)}
+                onChange={(e) =>
+                    handleInputChange("upiClose", Number(e.target.value), i)
+                }
                 placeholder={`PhonePe/Paytm/UPI End ${i + 1}:`}
                 id={`end ${i}`}
             />
         </div>
     );
-}
+})
 
 export default UPIReading;

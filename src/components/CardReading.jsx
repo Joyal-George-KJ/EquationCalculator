@@ -1,7 +1,7 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import useValue from "../hooks/useValue";
 
-function CardReading({ i }) {
+const CardReading = forwardRef(({ i }, ref) => {
     const [handleInputChange, datas] = useValue();
 
     return (
@@ -13,6 +13,7 @@ function CardReading({ i }) {
             <input
                 className="p-2 text-neutral-50 bg-neutral-700 rounded"
                 required
+                ref={(e) => (ref.current[i] = e)}
                 step={"any"}
                 type="number"
                 onChange={(e) =>
@@ -23,6 +24,6 @@ function CardReading({ i }) {
             />
         </div>
     );
-}
+});
 
 export default CardReading;

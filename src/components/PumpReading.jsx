@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { forwardRef, useEffect } from "react";
 import useValue from "../hooks/useValue";
 
-function PumpReading({ i }) {
+const PumpReading = forwardRef(({ i }, ref) => {
     const [handleInputChange, datas ] = useValue();
     useEffect(() => {
         handleInputChange("prices", 105.49, i);
@@ -28,11 +28,12 @@ function PumpReading({ i }) {
                     type="number"
                     placeholder="0.00"
                     required
+                    ref={(e) => (ref.current[((i * 3) || 0)] = e)}
                     onChange={(e) =>
                         handleInputChange("pumpReadingStarts", Number(e.target.value), i)
                     }
                     className="p-2 text-neutral-50 bg-neutral-700 rounded"
-                />
+                    />
             </div>
 
             {/* Reading End */}
@@ -40,7 +41,7 @@ function PumpReading({ i }) {
                 <label
                     className="text-neutral-200"
                     htmlFor={`reading-end-${i}`}
-                >
+                    >
                     Reading End:
                 </label>
                 <input
@@ -49,11 +50,12 @@ function PumpReading({ i }) {
                     step={"any"}
                     placeholder="0.00"
                     required
+                    ref={(e) => (ref.current[(((i * 3) + 1) || 1)] = e)}
                     onChange={(e) =>
                         handleInputChange("pumpReadingEnds", Number(e.target.value), i)
                     }
                     className="p-2 text-neutral-50 bg-neutral-700 rounded"
-                />
+                    />
             </div>
 
             {/* Fuel Selection */}
@@ -66,6 +68,7 @@ function PumpReading({ i }) {
                         id={`fuel-${i}`}
                         className="p-2 text-neutral-50 bg-neutral-700 rounded-l w-1/4"
                         defaultValue={105.49}
+                        ref={(e) => (ref.current[(((i * 3) + 2) || 2)] = e)}
                         onChange={(e) =>
                             handleInputChange("prices", Number(e.target.value), i)
                         }
@@ -89,6 +92,6 @@ function PumpReading({ i }) {
             </div>
         </div>
     );
-}
+})
 
 export default PumpReading;

@@ -1,8 +1,8 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import useValue from "../hooks/useValue";
 
-function CashReading({ i }) {
-    const [handleInputChange, datas ] = useValue();
+const CashReading = forwardRef(({ i }, ref) => {
+    const [handleInputChange, datas] = useValue();
 
     return (
         <div className="flex flex-col gap-4">
@@ -13,14 +13,17 @@ function CashReading({ i }) {
             <input
                 className="p-2 text-neutral-50 bg-neutral-700 rounded"
                 required
+                ref={(e) => (ref.current[i] = e)}
                 step={"any"}
                 type="number"
-                onChange={(e) => handleInputChange("cash", Number(e.target.value), i)}
+                onChange={(e) =>
+                    handleInputChange("cash", Number(e.target.value), i)
+                }
                 placeholder={`Cash ${i + 1}:`}
                 id={i}
             />
         </div>
     );
-}
+});
 
 export default CashReading;
