@@ -26,6 +26,7 @@ const PumpReading = forwardRef(({ i }, ref) => {
                 step={"any"}
                     id={`reading-start-${i}`}
                     type="number"
+                    value={datas.pumpReadingStarts[i] || ""} // ✅ Use the value from Redux
                     placeholder="0.00"
                     required
                     ref={(e) => (ref.current[((i * 3) || 0)] = e)}
@@ -48,6 +49,7 @@ const PumpReading = forwardRef(({ i }, ref) => {
                     id={`reading-end-${i}`}
                     type="number"
                     step={"any"}
+                    value={datas.pumpReadingEnds[i] || ""} // ✅ Use the value from Redux
                     placeholder="0.00"
                     required
                     ref={(e) => (ref.current[(((i * 3) + 1) || 1)] = e)}
@@ -67,7 +69,7 @@ const PumpReading = forwardRef(({ i }, ref) => {
                     <select
                         id={`fuel-${i}`}
                         className="p-2 text-neutral-50 bg-neutral-700 rounded-l w-1/4"
-                        defaultValue={105.49}
+                        defaultValue={datas.prices[i] || "105.49"}
                         ref={(e) => (ref.current[(((i * 3) + 2) || 2)] = e)}
                         onChange={(e) =>
                             handleInputChange("prices", Number(e.target.value), i)

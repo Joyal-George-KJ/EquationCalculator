@@ -14,6 +14,7 @@ const UPIReading = forwardRef(({ i }, ref) => {
                 className="p-2 text-neutral-50 bg-neutral-700 rounded"
                 required
                 type="number"
+                value={datas.upiStart[i] || ""} // ✅ Use the value from Redux
                 step={"any"}
                 ref={(e) => (ref.current[i * 2 || 1] = e)}
                 onChange={(e) =>
@@ -27,6 +28,7 @@ const UPIReading = forwardRef(({ i }, ref) => {
                 required
                 step={"any"}
                 type="number"
+                value={datas.upiClose[i] || ""} // ✅ Use the value from Redux
                 ref={(e) => (ref.current[i * 2 + 1 || 1] = e)}
                 onChange={(e) =>
                     handleInputChange("upiClose", Number(e.target.value), i)

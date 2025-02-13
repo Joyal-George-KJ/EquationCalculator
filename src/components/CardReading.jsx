@@ -13,6 +13,7 @@ const CardReading = forwardRef(({ i }, ref) => {
             <input
                 className="p-2 text-neutral-50 bg-neutral-700 rounded"
                 required
+                value={datas.cards[i] || ""} // ✅ Use the value from Redux
                 ref={(e) => (ref.current[i] = e)}
                 step={"any"}
                 type="number"
