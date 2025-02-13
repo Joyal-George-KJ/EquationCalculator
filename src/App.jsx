@@ -29,10 +29,10 @@ function App() {
 
     const inputs = [
         { key: "readings", placeholder: "Reading No:" },
-        { key: "upi", placeholder: "PhonePe/UPI:" },
-        { key: "cards", placeholder: "Card:" },
-        { key: "inlend", placeholder: "In-Lend" },
-        { key: "cash", placeholder: "Cash:" },
+        { key: "upi", placeholder: "PhonePe/UPI No:" },
+        { key: "cards", placeholder: "Card No:" },
+        { key: "inlend", placeholder: "In-Lend No:" },
+        { key: "cash", placeholder: "Cash No:" },
     ];
 
     const handleBack = () => setStage(stage - 1);
@@ -64,6 +64,7 @@ function App() {
                 required
                 type="number"
                 placeholder={placeholder}
+                value={counts[key] || ""}
                 ref={(el) => (ref.current[index] = el)}
                 onChange={(e) => setCounts((prev) => ({ ...prev, [key]: Number(e.target.value) }))}
             />
@@ -93,6 +94,7 @@ function App() {
                     handleNext();
                 }}
             >
+                <p className="text-neutral-50">Step {stage+1}/5:</p>
                 {stageComponents[stage]}
 
                 <div className="flex justify-between items-center mt-4 gap-4">
