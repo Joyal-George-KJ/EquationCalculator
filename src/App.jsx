@@ -8,6 +8,7 @@ import CashReading from "./components/CashReading";
 import { useDispatch } from "react-redux";
 import { calculateReads } from "./utilities/slice/readingSlice";
 import DisplayDataCard from "./components/DisplayDataCard";
+import PriceChanger from "./components/PriceChanger";
 
 function App() {
     const ref = useRef([]);
@@ -114,6 +115,8 @@ function App() {
                         {stage === 5 ? "Calculate" : "Next >>"}
                     </button>
                 </div>
+                
+                <PriceChanger />
             </form>
         </div>
     );
