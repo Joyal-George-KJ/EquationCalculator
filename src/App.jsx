@@ -37,7 +37,10 @@ function App() {
     ];
 
     const handleBack = () => setStage(stage - 1);
-    const handleCalc = () => console.log(dispatch(calculateReads()));
+    const handleCalc = () => {
+        console.log(dispatch(calculateReads()));
+        handleNext();
+    };
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -61,13 +64,19 @@ function App() {
         inputs.map(({ key, placeholder }, index) => (
             <input
                 key={key}
+                id={key}
                 className="p-2 text-neutral-50 bg-neutral-700 rounded"
-                required
                 type="number"
                 placeholder={placeholder}
-                value={counts[key] || ""}
+                value={counts[key] !== undefined ? String(counts[key]) : ""}
                 ref={(el) => (ref.current[index] = el)}
-                onChange={(e) => setCounts((prev) => ({ ...prev, [key]: Number(e.target.value) }))}
+                onChange={(e) =>
+                    setCounts((prev) => ({
+                        ...prev,
+                        [key]:
+                            e.target.value === "" ? "" : Number(e.target.value),
+                    }))
+                }
             />
         ));
 
@@ -107,13 +116,15 @@ function App() {
                             {"<< Back"}
                         </button>
                     )}
-                    <button
-                        type="submit"
-                        className="p-2 text-neutral-50 bg-neutral-700 rounded w-full"
-                        onClick={stage === 5 ? handleCalc : undefined}
-                    >
-                        {stage === 5 ? "Calculate" : "Next >>"}
-                    </button>
+                    {stage < 6 && (
+                        <button
+                            type="submit"
+                            className="p-2 text-neutral-50 bg-neutral-700 rounded w-full"
+                            onClick={stage === 5 ? handleCalc : handleNext}
+                        >
+                            {stage === 5 ? "Calculate" : "Next >>"}
+                        </button>
+                    )}
                 </div>
                 
                 <PriceChanger />
