@@ -12,67 +12,93 @@ const DisplayDataCard = () => {
         cash,
     } = useSelector((state) => state.calculateReading);
 
-    // Step 1: Calculate total reading amount
+    // Step 1: Reading Difference Calculation
     const step1Equations = pumpReadingStarts.map((start, index) => 
         `(${pumpReadingEnds[index]} - ${start}) * ${prices[index]}`
     );
-    const totalReadingAmount = pumpReadingStarts.reduce((total, start, index) => {
+    const readingDifference = pumpReadingStarts.reduce((total, start, index) => {
         return total + (pumpReadingEnds[index] - start) * prices[index];
     }, 0);
 
-    // Step 2: Calculate total UPI transactions
+    // Step 2: UPI Difference Calculation
     const step2Equations = upiStart.map((start, index) => 
         `(${upiClose[index]} - ${start})`
     );
-    const totalUPI = upiStart.reduce((total, start, index) => {
+    const upiDifference = upiStart.reduce((total, start, index) => {
         return total + (upiClose[index] - start);
     }, 0);
 
-    // Step 3: Calculate total other transactions (Card, Cash, In-Lend)
-    const totalCards = cards.reduce((total, card) => total + card, 0);
-    const totalCash = cash.reduce((total, c) => total + c, 0);
-    const totalInLend = inlends.reduce((total, inlend) => total + inlend, 0);
+    // Step 3: Card Total Calculation
+    const cardTotal = cards.reduce((total, card) => total + card, 0);
+    const step3Equation = cards.length ? `${cards.join(" + ")} = ${cardTotal}` : "0";
 
-    const step3Equation = `(${cards.join(" + ")}) + (${cash.join(" + ")}) + (${inlends.join(" + ")})`;
-    const totalCashFlow = totalUPI + totalCards + totalCash + totalInLend;
+    // Step 4: In-Lend Total Calculation
+    const inlendTotal = inlends.reduce((total, inlend) => total + inlend, 0);
+    const step4Equation = inlends.length ? `${inlends.join(" + ")} = ${inlendTotal}` : "0";
 
-    // Step 4: Calculate final difference
-    const difference = totalReadingAmount - totalCashFlow;
+    // Step 5: Cash Total Calculation
+    const cashTotal = cash.reduce((total, c) => total + c, 0);
+    const step5Equation = cash.length ? `${cash.join(" + ")} = ${cashTotal}` : "0";
+
+    // Step 6: Total of Cards, Cash, In-Lend, and UPI
+    const totalSum = cardTotal + inlendTotal + cashTotal + upiDifference;
+    const step6Equation = `${cardTotal} + ${inlendTotal} + ${cashTotal} + ${upiDifference} = ${totalSum}`;
+
+    // Step 7: Final Difference (Reading - Total)
+    const finalDifference = totalSum - readingDifference;
+    const step7Equation = `${totalSum} - ${readingDifference} = ${finalDifference >= 0 && '+'}${finalDifference}`;
 
     return (
         <div className="max-w-full mt-6 p-6 bg-neutral-800 text-white rounded-2xl shadow-lg">
             <h2 className="text-xl font-bold mb-4">📊 Transaction Summary</h2>
 
-            {/* Step 1 */}
+            {/* Step 1: Reading Difference */}
             <div className="mb-4">
-                <h3 className="text-lg font-semibold">Step 1: Fuel Sales Calculation</h3>
+                <h3 className="text-lg font-semibold">Step 1: Reading Difference</h3>
                 <p className="text-sm">{step1Equations.join(" + ")}</p>
-                <p className="text-md font-bold">= ₹{totalReadingAmount}</p>
+                <p className="text-md font-bold">= ₹{readingDifference}</p>
             </div>
 
-            {/* Step 2 */}
+            {/* Step 2: UPI Difference */}
             <div className="mb-4">
-                <h3 className="text-lg font-semibold">Step 2: UPI Transactions</h3>
+                <h3 className="text-lg font-semibold">Step 2: UPI Difference</h3>
                 <p className="text-sm">{step2Equations.join(" + ")}</p>
-                <p className="text-md font-bold">= ₹{totalUPI}</p>
+                <p className="text-md font-bold">= ₹{upiDifference}</p>
             </div>
 
-            {/* Step 3 */}
+            {/* Step 3: Card Total */}
             <div className="mb-4">
-                <h3 className="text-lg font-semibold">Step 3: Other Transactions</h3>
+                <h3 className="text-lg font-semibold">Step 3: Card Total</h3>
                 <p className="text-sm">{step3Equation}</p>
-                <p className="text-md font-bold">= ₹{totalCards + totalCash + totalInLend}</p>
+                <p className="text-md font-bold">= ₹{cardTotal}</p>
             </div>
 
-            {/* Step 4 */}
+            {/* Step 4: In-Lend Total */}
             <div className="mb-4">
-                <h3 className="text-lg font-semibold">Step 4: Total Cashflow</h3>
-                <p className="text-md font-bold">= ₹{totalCashFlow}</p>
+                <h3 className="text-lg font-semibold">Step 4: In-Lend Total</h3>
+                <p className="text-sm">{step4Equation}</p>
+                <p className="text-md font-bold">= ₹{inlendTotal}</p>
             </div>
 
-            {/* Step 5: Final Difference */}
-            <div className={`mt-4 p-3 rounded-xl text-center ${difference <= 15 ? "bg-green-600" : "bg-red-600"}`}>
-                <strong>📉 Difference: ₹{difference}</strong>
+            {/* Step 5: Cash Total */}
+            <div className="mb-4">
+                <h3 className="text-lg font-semibold">Step 5: Cash Total</h3>
+                <p className="text-sm">{step5Equation}</p>
+                <p className="text-md font-bold">= ₹{cashTotal}</p>
+            </div>
+
+            {/* Step 6: Total of All Transactions */}
+            <div className="mb-4">
+                <h3 className="text-lg font-semibold">Step 6: Total of Cards, Cash, Inlend, UPI</h3>
+                <p className="text-sm">{step6Equation}</p>
+                <p className="text-md font-bold">= ₹{totalSum}</p>
+            </div>
+
+            {/* Step 7: Final Difference */}
+            <div className={`mt-4 p-3 rounded-xl text-center ${finalDifference >= -10 ? "bg-green-600" : "bg-red-600"}`}>
+                <h3 className="text-lg font-semibold">Step 7: Final Difference</h3>
+                <p className="text-sm">{step7Equation}</p>
+                <strong>📉 Difference: ₹{`${finalDifference >= 0 && '+'}${finalDifference}`}</strong>
             </div>
         </div>
     );
