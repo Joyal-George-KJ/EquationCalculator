@@ -15,17 +15,17 @@ function App() {
     const dispatch = useDispatch();
     const [stage, setStage] = useState(0);
     const [counts, setCounts] = useState({
-        readings: 0,
-        cards: 0,
-        upi: 0,
-        cash: 0,
-        inlend: 0,
+        readings: undefined,
+        cards: undefined,
+        upi: undefined,
+        cash: undefined,
+        inlend: undefined,
     });
     const [index, setIndex] = useState(0);
 
     const handleNext = () => {
         setIndex(0);
-        setStage(stage + 1);
+        stage !== 6 ? setStage(stage + 1) : alert("No more steps");
     };
 
     const inputs = [
@@ -80,10 +80,18 @@ function App() {
             />
         ));
 
-    const renderStage = (Component, count) =>
-        Array.from({ length: count }).map((_, i) => (
-            <Component key={i} i={i} ref={ref} />
-        ));
+    const renderStage = (Component, count) => {
+        if (count === 0) {
+            return <p className="text-red-500" onLoad={() => setTimeout(() => handleNext(), 500)}>No data entered. Skipping...</p>;
+        }
+        return (
+            <>
+                {Array.from({ length: count }, (_, i) => (
+                    <Component key={i} i={i} ref={ref} />
+                ))}
+            </>
+        );
+    };
 
     const stageComponents = [
         <>{renderInputs()}</>,
@@ -101,10 +109,9 @@ function App() {
                 className="flex flex-col gap-4"
                 onSubmit={(e) => {
                     e.preventDefault();
-                    handleNext();
                 }}
             >
-                <p className="text-neutral-50">Step {stage+1}/5:</p>
+                <p className="text-neutral-50">Step {stage + 1}/7:</p>
                 {stageComponents[stage]}
 
                 <div className="flex justify-between items-center mt-4 gap-4">
@@ -126,8 +133,8 @@ function App() {
                         </button>
                     )}
                 </div>
-                
-                <PriceChanger />
+
+                {stage <= 1 && <PriceChanger />}
             </form>
         </div>
     );
