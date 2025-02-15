@@ -1,11 +1,14 @@
 import React, { forwardRef, useEffect } from "react";
 import useValue from "../hooks/useValue";
+import { useSelector } from "react-redux";
 
 const PumpReading = forwardRef(({ i }, ref) => {
-    const [handleInputChange, datas ] = useValue();
+    const [handleInputChange, datas] = useValue();
+    const prices = useSelector((state) => state.priceList);
+
     useEffect(() => {
-        handleInputChange("prices", 105.49, i);
-    }, [])
+        handleInputChange("prices", prices["ms"], i);
+    }, []);
 
     return (
         <div className="flex flex-col gap-4">
@@ -23,18 +26,22 @@ const PumpReading = forwardRef(({ i }, ref) => {
                     Reading Start:
                 </label>
                 <input
-                step={"any"}
+                    step={"any"}
                     id={`reading-start-${i}`}
                     type="number"
                     value={datas.pumpReadingStarts[i] || ""} // ✅ Use the value from Redux
                     placeholder="0.00"
                     required
-                    ref={(e) => (ref.current[((i * 3) || 0)] = e)}
+                    ref={(e) => (ref.current[i * 3 || 0] = e)}
                     onChange={(e) =>
-                        handleInputChange("pumpReadingStarts", Number(e.target.value), i)
+                        handleInputChange(
+                            "pumpReadingStarts",
+                            Number(e.target.value),
+                            i
+                        )
                     }
                     className="p-2 text-neutral-50 bg-neutral-700 rounded"
-                    />
+                />
             </div>
 
             {/* Reading End */}
@@ -42,7 +49,7 @@ const PumpReading = forwardRef(({ i }, ref) => {
                 <label
                     className="text-neutral-200"
                     htmlFor={`reading-end-${i}`}
-                    >
+                >
                     Reading End:
                 </label>
                 <input
@@ -52,12 +59,16 @@ const PumpReading = forwardRef(({ i }, ref) => {
                     value={datas.pumpReadingEnds[i] || ""} // ✅ Use the value from Redux
                     placeholder="0.00"
                     required
-                    ref={(e) => (ref.current[(((i * 3) + 1) || 1)] = e)}
+                    ref={(e) => (ref.current[i * 3 + 1 || 1] = e)}
                     onChange={(e) =>
-                        handleInputChange("pumpReadingEnds", Number(e.target.value), i)
+                        handleInputChange(
+                            "pumpReadingEnds",
+                            Number(e.target.value),
+                            i
+                        )
                     }
                     className="p-2 text-neutral-50 bg-neutral-700 rounded"
-                    />
+                />
             </div>
 
             {/* Fuel Selection */}
@@ -68,18 +79,22 @@ const PumpReading = forwardRef(({ i }, ref) => {
                 <div className="flex">
                     <select
                         id={`fuel-${i}`}
-                        className="p-2 text-neutral-50 bg-neutral-700 rounded-l w-1/4"
+                        className="p-2 text-neutral-50 bg-neutral-600 rounded-l w-1/4 uppercase"
                         defaultValue={datas.prices[i] || "105.49"}
-                        ref={(e) => (ref.current[(((i * 3) + 2) || 2)] = e)}
+                        ref={(e) => (ref.current[i * 3 + 2 || 2] = e)}
                         onChange={(e) =>
-                            handleInputChange("prices", Number(e.target.value), i)
+                            handleInputChange(
+                                "prices",
+                                Number(e.target.value),
+                                i
+                            )
                         }
                     >
-                        <option value={105.49}>MS</option>
-                        <option value={94.48}>DS</option>
-                        <option value={112.64}>XP</option>
-                        <option value={61.78}>LPG</option>
-                        <option value={0}>Others</option>
+                        {Object.keys(prices).map((val, ind) => (
+                            <option key={ind} value={prices[val]}>
+                                {val}
+                            </option>
+                        ))}
                     </select>
                     <input
                         id={`display-price-${i}`}
@@ -94,6 +109,6 @@ const PumpReading = forwardRef(({ i }, ref) => {
             </div>
         </div>
     );
-})
+});
 
 export default PumpReading;
