@@ -38,7 +38,7 @@ function App() {
 
     const handleBack = () => setStage(stage - 1);
     const handleCalc = () => {
-        console.log(dispatch(calculateReads()));
+        dispatch(calculateReads());
         handleNext();
     };
 
