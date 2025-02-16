@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPriceList } from "../utilities/slice/priceListSlice";
+import AddNewFuel from "./AddNewFuel";
 
 function PriceChanger() {
     const [toggle, setToggle] = useState(false);
@@ -45,13 +46,16 @@ function PriceChanger() {
                                 step={"any"}
                                 value={priceData[key]}
                                 onChange={(e) => {
-                                    handleChange(e.target.value, key)
+                                    handleChange(Number(e.target.value), key);
                                 }}
                                 placeholder="Price"
                                 className="p-2 text-neutral-50 bg-neutral-700 rounded-r w-3/4"
                             />
                         </div>
                     ))}
+                    <div className="flex justify-center shadow bg-neutral-700 text-neutral-50 p-2 rounded">
+                        <AddNewFuel />
+                    </div>
                 </div>
             )}
         </div>
