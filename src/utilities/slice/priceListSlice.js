@@ -8,17 +8,17 @@ const initialState = {
 };
 
 const priceList = createSlice({
-    name: 'priceList',
+    name: "priceList",
     initialState: initialState,
     reducers: {
         setPriceList: (state, action) => {
-            if(action.payload) {
-                let {key, value} = action.payload;
-                state[key] = value;
+            if (action.payload) {
+                let { key, value } = action.payload;
+                state[key] = value
             } else {
                 state = initialState;
             }
-            localStorage.setItem('pricelist', JSON.stringify(state));
+            localStorage.setItem("pricelist", JSON.stringify(state));
         },
     },
 });
