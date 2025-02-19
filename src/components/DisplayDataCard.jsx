@@ -46,7 +46,7 @@ const DisplayDataCard = () => {
 
     // Step 7: Final Difference (Reading - Total)
     const finalDifference = totalSum - readingDifference;
-    const step7Equation = `${totalSum} - ${readingDifference} = ${finalDifference >= 0 && '+'}${finalDifference}`;
+    const step7Equation = `${totalSum} - ${readingDifference} = ${finalDifference >= 0 ? '+' : ''}${finalDifference}`;
 
     return (
         <div className="max-w-full mt-6 p-6 bg-neutral-800 text-white rounded-2xl shadow-lg">
