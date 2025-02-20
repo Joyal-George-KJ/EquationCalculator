@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { calculateReads } from "./utilities/slice/readingSlice";
 import DisplayDataCard from "./components/DisplayDataCard";
 import PriceChanger from "./components/PriceChanger";
+import Header from "./components/Header";
 
 function App() {
     const ref = useRef([]);
@@ -82,7 +83,14 @@ function App() {
 
     const renderStage = (Component, count) => {
         if (count === 0) {
-            return <p className="text-red-500" onLoad={() => setTimeout(() => handleNext(), 500)}>No data entered. Skipping...</p>;
+            return (
+                <p
+                    className="text-red-500"
+                    onLoad={() => setTimeout(() => handleNext(), 500)}
+                >
+                    No data entered. Skipping...
+                </p>
+            );
         }
         return (
             <>
@@ -104,7 +112,8 @@ function App() {
     ];
 
     return (
-        <div className="p-6 max-w-lg mx-auto">
+        <div className="p-6 max-w-lg mx-auto bg-neutral-800 min-h-dvh relative">
+            <Header />
             <form
                 className="flex flex-col gap-4"
                 onSubmit={(e) => {
@@ -133,9 +142,8 @@ function App() {
                         </button>
                     )}
                 </div>
-
-                {stage <= 1 && <PriceChanger />}
             </form>
+            {stage <= 1 && <PriceChanger />}
         </div>
     );
 }
