@@ -14,13 +14,13 @@ function PriceChanger() {
 
     return (
         <div
-            className={`absolute ${
-                toggle ? "w-full h-full" : ""
-            } bottom-0 right-0 p-4 bg-neutral-800 rounded-tl-lg`}
+            className={`fixed ${
+                toggle ? "bg-neutral-50" : ""
+            } top-0 right-0 left-0 bottom-0 `}
         >
             <button
                 type="button"
-                className="absolute bottom-8 right-8 px-2 py-1 text-neutral-50 rounded-full bg-neutral-700 shadow-lg"
+                className="fixed bottom-8 right-8 px-2 py-1 text-neutral-50 rounded-full bg-neutral-700 shadow-lg"
                 onClick={() => setToggle(!toggle)}
             >
                 {toggle ? (
