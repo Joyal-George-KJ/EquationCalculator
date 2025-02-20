@@ -30,7 +30,7 @@ function PriceChanger() {
                 )}
             </button>
             {toggle && (
-                <div className="flex flex-col p-4 max-w-lg gap-4 mx-auto">
+                <div className="flex flex-col p-4 max-w-lg gap-4 mx-auto bg-neutral-800 min-h-dvh">
                     
                     {Object.keys(priceData).map((key, i) => (
                         <div className="flex" key={i}>
