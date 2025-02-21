@@ -14,9 +14,9 @@ function PriceChanger() {
 
     return (
         <div
-            className={`fixed ${
-                toggle ? "bg-neutral-50" : ""
-            } top-0 right-0 left-0 bottom-0 `}
+            className={`${
+                toggle ? "fixed bg-neutral-50 top-0 right-0 left-0 bottom-0 " : ""
+            } `}
         >
             <button
                 type="button"
