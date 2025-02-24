@@ -13,11 +13,11 @@ function App() {
     const ref = useRef([]);
     const [stage, setStage] = useState(0);
     const [counts, setCounts] = useState({
-        readings: undefined,
-        cards: undefined,
-        upi: undefined,
-        cash: undefined,
-        inlend: undefined,
+        readings: '',
+        cards: '',
+        upi: '',
+        cash: '',
+        inlend: '',
     });
     const [index, setIndex] = useState(0);
 
