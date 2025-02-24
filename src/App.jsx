@@ -38,10 +38,6 @@ function App() {
     ];
 
     const handleBack = () => setStage(stage - 1);
-    const handleCalc = () => {
-        dispatch(calculateReads());
-        handleNext();
-    };
 
     useEffect(() => {
         const handleKeyDown = (e) => {
@@ -136,7 +132,7 @@ function App() {
                         <button
                             type="submit"
                             className="p-2 text-neutral-50 bg-neutral-700 rounded w-full"
-                            onClick={stage === 5 ? handleCalc : handleNext}
+                            onClick={handleNext}
                         >
                             {stage === 5 ? "Calculate" : "Next >>"}
                         </button>
