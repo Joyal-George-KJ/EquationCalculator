@@ -98,7 +98,7 @@ const DisplayDataCard = () => {
             <div className={`mt-4 p-3 rounded-xl text-center ${finalDifference >= -10 ? "bg-green-600" : "bg-red-600"}`}>
                 <h3 className="text-lg font-semibold">Step 7: Final Difference</h3>
                 <p className="text-sm">{step7Equation}</p>
-                <strong>📉 Difference: ₹{`${finalDifference >= 0 ? '+' : ''}${finalDifference}`}</strong>
+                <strong>📉 Difference: ₹{`${finalDifference > 0 ? '+' : ''}${finalDifference}`}</strong>
             </div>
         </div>
     );
