@@ -5,15 +5,12 @@ import CardReading from "./components/CardReading";
 import UPIReading from "./components/UPIReading";
 import InlendReading from "./components/InlendReading";
 import CashReading from "./components/CashReading";
-import { useDispatch } from "react-redux";
-import { calculateReads } from "./utilities/slice/readingSlice";
 import DisplayDataCard from "./components/DisplayDataCard";
 import PriceChanger from "./components/PriceChanger";
 import Header from "./components/Header";
 
 function App() {
     const ref = useRef([]);
-    const dispatch = useDispatch();
     const [stage, setStage] = useState(0);
     const [counts, setCounts] = useState({
         readings: undefined,
