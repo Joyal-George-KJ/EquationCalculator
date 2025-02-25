@@ -20,7 +20,7 @@ const DisplayDataCard = () => {
         `(${pumpReadingEnds[index]} - ${start}) * ${prices[index]}`
     );
     const readingDifference = pumpReadingStarts.reduce((total, start, index) => {
-        return total + (pumpReadingEnds[index] - start) * prices[index];
+        return (total + (pumpReadingEnds[index] - start) * prices[index]).toFixed(2);
     }, 0);
 
     // Step 2: UPI Difference Calculation
@@ -28,7 +28,7 @@ const DisplayDataCard = () => {
         `(${upiClose[index]} - ${start})`
     );
     const upiDifference = upiStart.reduce((total, start, index) => {
-        return total + (upiClose[index] - start);
+        return (total + (upiClose[index] - start)).toFixed(2);
     }, 0);
 
     // Step 3: Card Total Calculation
