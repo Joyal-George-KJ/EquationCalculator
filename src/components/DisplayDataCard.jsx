@@ -1,9 +1,9 @@
 import { useSelector } from "react-redux";
 
+// Helper function to format numbers with two decimal places
+const twoDecimal = (num) => parseFloat(num).toFixed(2);
+
 const DisplayDataCard = () => {
-    // Helper function to convert number to 2 decimal places
-    const twoDecimal = (num) => Number(num).toFixed(2);
-    
     const {
         pumpReadingStarts,
         pumpReadingEnds,
