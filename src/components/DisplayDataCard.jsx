@@ -41,56 +41,48 @@ const DisplayDataCard = () => {
     const finalDifference = totalSum - readingDifference;
 
     return (
-        <div className="max-w-full mt-6 p-6 bg-neutral-800 text-white rounded-2xl shadow-lg">
-            <h2 className="text-xl font-bold mb-4">📊 Transaction Summary</h2>
+        <div className="text-white rounded-2xl shadow-2xl">
+            <h2 className="text-2xl font-bold mb-4 text-center">📊 Transaction Summary</h2>
 
-            {/* Step 1: Reading Difference */}
-            <div className="mb-4">
+            {/* Step 1: Reading Difference (Full Equation) */}
+            <div className="mb-4 p-4 bg-neutral-700 rounded-xl shadow">
                 <h3 className="text-lg font-semibold">Step 1: Reading Difference</h3>
-                <p className="text-sm">{step1Equations.join(" + ")}</p>
+                <p className="text-sm text-gray-400">{readingDetails.join(" + ")}</p>
                 <p className="text-md font-bold">= ₹{twoDecimal(readingDifference)}</p>
             </div>
 
             {/* Step 2: UPI Difference */}
-            <div className="mb-4">
+            <div className="mb-4 p-4 bg-neutral-700 rounded-xl shadow">
                 <h3 className="text-lg font-semibold">Step 2: UPI Difference</h3>
-                <p className="text-sm">{step2Equations.join(" + ")}</p>
+                <p className="text-sm text-gray-400">{upiDifferences.join(" + ")}</p>
                 <p className="text-md font-bold">= ₹{twoDecimal(upiDifference)}</p>
             </div>
 
-            {/* Step 3: Card Total */}
-            <div className="mb-4">
-                <h3 className="text-lg font-semibold">Step 3: Card Total</h3>
-                <p className="text-sm">{step3Equation}</p>
-                <p className="text-md font-bold">= ₹{twoDecimal(cardTotal)}</p>
-            </div>
+            {/* Step 3-5: Card, Inlend, Cash */}
+            {[
+                { title: "Card Total", values: cards, result: cardTotal },
+                { title: "In-Lend Total", values: inlends, result: inlendTotal },
+                { title: "Cash Total", values: cash, result: cashTotal },
+            ].map(({ title, values, result }, i) => (
+                <div key={i} className="mb-4 p-4 bg-neutral-700 rounded-xl shadow">
+                    <h3 className="text-lg font-semibold">{`Step ${i+3}: ${title}`}</h3>
+                    <p className="text-sm text-gray-400">{values.join(" + ")}</p>
+                    <p className="text-md font-bold">= ₹{twoDecimal(result)}</p>
+                </div>
+            ))}
 
-            {/* Step 4: In-Lend Total */}
-            <div className="mb-4">
-                <h3 className="text-lg font-semibold">Step 4: In-Lend Total</h3>
-                <p className="text-sm">{step4Equation}</p>
-                <p className="text-md font-bold">= ₹{twoDecimal(inlendTotal)}</p>
-            </div>
-
-            {/* Step 5: Cash Total */}
-            <div className="mb-4">
-                <h3 className="text-lg font-semibold">Step 5: Cash Total</h3>
-                <p className="text-sm">{step5Equation}</p>
-                <p className="text-md font-bold">= ₹{twoDecimal(cashTotal)}</p>
-            </div>
-
-            {/* Step 6: Total of All Transactions */}
-            <div className="mb-4">
+            {/* Step 6: Total Calculation */}
+            <div className="mb-4 p-4 bg-neutral-700 rounded-xl shadow">
                 <h3 className="text-lg font-semibold">Step 6: Total of Cards, Cash, Inlend, UPI</h3>
-                <p className="text-sm">{step6Equation}</p>
+                <p className="text-sm text-gray-400">{`${twoDecimal(cardTotal)} + ${twoDecimal(inlendTotal)} + ${twoDecimal(cashTotal)} + ${twoDecimal(upiDifference)}`}</p>
                 <p className="text-md font-bold">= ₹{twoDecimal(totalSum)}</p>
             </div>
 
             {/* Step 7: Final Difference */}
-            <div className={`mt-4 p-3 rounded-xl text-center ${finalDifference >= -10 ? "bg-green-600" : "bg-red-600"}`}>
-                <h3 className="text-lg font-semibold">Step 7: Final Difference</h3>
-                <p className="text-sm">{step7Equation}</p>
-                <strong>📉 Difference: ₹{`${finalDifference > 0 ? '+' : ''}${twoDecimal(finalDifference)}`}</strong>
+            <div className={`p-4 rounded-xl text-center font-bold ${finalDifference >= -10 ? "bg-green-600" : "bg-red-600"}`}>
+                <h3 className="text-lg">Final Difference</h3>
+                <p className="text-sm text-gray-400">{`${twoDecimal(totalSum)} - ${twoDecimal(readingDifference)}`}</p>
+                <p className="text-md">₹{`${finalDifference > 0 ? "+" : ''}${twoDecimal(finalDifference)}`}</p>
             </div>
         </div>
     );
