@@ -97,6 +97,7 @@ function App() {
     const stageComponents = [
         <>{renderInputs()}</>,
         renderStage(PumpReading, counts.readings),
+        renderStage(UPIReading, counts.upi),
         renderStage(CardReading, counts.cards),
         renderStage(InlendReading, counts.inlend),
         renderStage(CashReading, counts.cash),
