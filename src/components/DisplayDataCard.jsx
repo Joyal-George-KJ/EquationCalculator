@@ -26,6 +26,7 @@ const DisplayDataCard = () => {
     const readingDifference = readingDifferences.reduce((a, b) => a + b, 0);
 
     // Step 2: UPI Difference Calculation
+    const upiDetails = upiStart.map((start, i) => `(${upiClose[i]} - ${start})`);
     const upiDifferences = upiStart.map((start, i) => upiClose[i] - start);
     const upiDifference = upiDifferences.reduce((a, b) => a + b, 0);
 
@@ -54,7 +55,7 @@ const DisplayDataCard = () => {
             {/* Step 2: UPI Difference */}
             <div className="mb-4 p-4 bg-neutral-700 rounded-xl shadow">
                 <h3 className="text-lg font-semibold">Step 2: UPI Difference</h3>
-                <p className="text-sm text-gray-400">{upiDifferences.join(" + ")}</p>
+                <p className="text-sm text-gray-400">{upiDetails.join(" + ")}</p>
                 <p className="text-md font-bold">= ₹{twoDecimal(upiDifference)}</p>
             </div>
 
