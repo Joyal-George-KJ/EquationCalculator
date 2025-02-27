@@ -98,7 +98,6 @@ function App() {
         <>{renderInputs()}</>,
         renderStage(PumpReading, counts.readings),
         renderStage(CardReading, counts.cards),
-        renderStage(UPIReading, counts.upi),
         renderStage(InlendReading, counts.inlend),
         renderStage(CashReading, counts.cash),
         <DisplayDataCard />,
