@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 const generatePDF = () => {
     let data = useSelector((state) => state.calculateReading);
     const doc = new jsPDF();
+    const curDate = new Date().toLocaleDateString();
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(18);
@@ -101,7 +102,7 @@ const generatePDF = () => {
         theme: "grid",
     });
 
-    doc.save("Transaction_Summary.pdf");
+    doc.save(`${curDate}_Transaction_Summary.pdf`);
 };
 
 export default generatePDF;
