@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux";
+import GeneratePDF from "./GeneratePDF";
 
 // Helper function to format numbers with two decimal places
 const twoDecimal = (num) => parseFloat(num).toFixed(2);
@@ -85,6 +86,7 @@ const DisplayDataCard = () => {
                 <p className="text-sm text-gray-400">{`${twoDecimal(totalSum)} - ${twoDecimal(readingDifference)}`}</p>
                 <p className="text-md">₹{`${finalDifference > 0 ? "+" : ''}${twoDecimal(finalDifference)}`}</p>
             </div>
+            <GeneratePDF key={0} />
         </div>
     );
 };
