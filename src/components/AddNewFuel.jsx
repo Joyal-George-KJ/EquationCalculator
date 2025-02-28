@@ -22,7 +22,7 @@ function AddNewFuel() {
     return (
         <>
             <button
-                className=" text-neutral-200 rounded-full px-4"
+                className=" text-neutral-200 rounded-full px-4 w-full"
                 onClick={() => setToggle(!toggle)}
             >
                 <i className="bi bi-plus-lg"></i>
