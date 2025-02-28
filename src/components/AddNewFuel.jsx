@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setPriceList } from "../utilities/slice/priceListSlice";
 
 function AddNewFuel() {
@@ -7,7 +7,6 @@ function AddNewFuel() {
     const [fuelName, setFuelName] = useState("");
     const [fuelPrice, setFuelPrice] = useState("");
     const dispatch = useDispatch();
-    const fuelList = useSelector((state) => state.priceList);
 
     
     const handleChange = () => {
