@@ -1,10 +1,12 @@
 import { useSelector } from "react-redux";
 import GeneratePDF from "./GeneratePDF";
+import { useState } from "react";
 
 // Helper function to format numbers with two decimal places
 const twoDecimal = (num) => parseFloat(num).toFixed(2);
 
 const DisplayDataCard = () => {
+    const [download, setDownload] = useState(false);
     const {
         pumpReadingStarts,
         pumpReadingEnds,
@@ -86,7 +88,15 @@ const DisplayDataCard = () => {
                 <p className="text-sm text-gray-400">{`${twoDecimal(totalSum)} - ${twoDecimal(readingDifference)}`}</p>
                 <p className="text-md">₹{`${finalDifference > 0 ? "+" : ''}${twoDecimal(finalDifference)}`}</p>
             </div>
-            <GeneratePDF key={0} />
+            <button
+                type="button"
+                className="w-full p-4 my-4 font-bold text-lg shadow bg-slate-500 rounded-xl"
+                onClick={() => setDownload(!download)}
+            >
+                Download Summary
+            </button>
+
+            {download && <GeneratePDF />}
         </div>
     );
 };
