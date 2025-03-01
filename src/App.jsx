@@ -136,7 +136,7 @@ function App() {
                     )}
                 </div>
             </form>
-            {stage <= 1 && <PriceChanger />}
+            {stage == 0 && <PriceChanger />}
         </div>
     );
 }
