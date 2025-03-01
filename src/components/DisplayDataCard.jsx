@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import GeneratePDF from "./GeneratePDF";
+import GeneratePDF from "../hooks/GeneratePDF";
 import { useState } from "react";
 
 // Helper function to format numbers with two decimal places
