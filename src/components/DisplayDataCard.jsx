@@ -26,7 +26,7 @@ const DisplayDataCard = () => {
     });
 
     const readingDifferences = pumpReadingStarts.map(
-        (start, i) => (pumpReadingEnds[i] - start) * prices[i]
+        (start, i) => (Math.abs(pumpReadingEnds[i] - start)) * prices[i]
     );
     const readingDifference = readingDifferences.reduce((a, b) => a + b, 0);
 
@@ -34,7 +34,7 @@ const DisplayDataCard = () => {
     const upiDetails = upiStart.map(
         (start, i) => `(${upiClose[i]} - ${start})`
     );
-    const upiDifferences = upiStart.map((start, i) => upiClose[i] - start);
+    const upiDifferences = upiStart.map((start, i) => Math.abs(upiClose[i] - start));
     const upiDifference = upiDifferences.reduce((a, b) => a + b, 0);
 
     // Step 3-5: Cards, In-Lend, Cash Totals
